@@ -1,0 +1,9 @@
+FROM postgres
+
+ENV POSTGRES_DB=ronfic_main
+ENV POSTGRES_USER=ronfic
+ENV POSTGRES_PASSWORD=ronfic_2024
+
+COPY restore.sql /docker-entrypoint-initdb.d/restore.sql
+COPY init.sh /docker-entrypoint-initdb.d/init.sh
+RUN chmod +x /docker-entrypoint-initdb.d/init.sh
