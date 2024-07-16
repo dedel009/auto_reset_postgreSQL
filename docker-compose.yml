@@ -8,13 +8,18 @@ services:
     image: ronfic_main_dev_image:latest
     container_name: ronfic_main_dump_db
     environment:
-      POSTGRES_DB : "ronfic_main"
-      POSTGRES_USER : "ronfic"
-      POSTGRES_PASSWORD : "ronfic_2024"
+      POSTGRES_DB : ronfic_main
+      POSTGRES_USER : ronfic
+      POSTGRES_PASSWORD : ronfic_2024
     ports:
       - "5432:5432"
     volumes:
       - ./restore.sql:/docker-entrypoint-initdb.d/restore.sql
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
     restart: always
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ronfic -d ronfic_main"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
