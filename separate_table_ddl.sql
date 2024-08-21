@@ -30,3 +30,24 @@ CREATE TABLE public.core_freelog (
 	updated timestamptz NOT NULL,
 	CONSTRAINT core_freelog_pkey PRIMARY KEY (id)
 );
+
+CREATE TABLE public.django_admin_log (
+	id serial4 NOT NULL,
+	action_time timestamptz NOT NULL,
+	object_id text NULL,
+	object_repr varchar(200) NOT NULL,
+	action_flag int2 NOT NULL,
+	change_message text NOT NULL,
+	content_type_id int4 NULL,
+	user_id int8 NOT NULL,
+	CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0)),
+	CONSTRAINT django_admin_log_pkey PRIMARY KEY (id)
+);
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+-- public.django_admin_log foreign keys
+
+ALTER TABLE public.django_admin_log ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE public.django_admin_log ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_user_administrationuser_id FOREIGN KEY (user_id) REFERENCES public.user_administrationuser(id) DEFERRABLE INITIALLY DEFERRED;
