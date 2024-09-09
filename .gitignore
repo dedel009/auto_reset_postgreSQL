@@ -1,2 +1,3 @@
 restore.sql
 init_dump.bat
+separate_table_ddl.sql
