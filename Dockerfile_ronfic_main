@@ -2,7 +2,8 @@ FROM postgres
 
 # restore.sql 파일 복사
 COPY init.sh /docker-entrypoint-initdb.d/
-COPY restore.sql /docker-entrypoint-initdb.d/
+# COPY restore.sql /docker-entrypoint-initdb.d/
+# COPY separate_table_ddl.sql /docker-entrypoint-initdb.d/
 
-# 실행 권한 부여
+# # 실행 권한 부여
 RUN chmod +x /docker-entrypoint-initdb.d/init.sh

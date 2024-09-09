@@ -15,6 +15,6 @@ services:
       - "5432:5432"
     volumes:
       - ./restore.sql:/docker-entrypoint-initdb.d/restore.sql
-      # - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./separate_table_ddl.sql:/docker-entrypoint-initdb.d/separate_table_ddl.sql
     restart: always
 
