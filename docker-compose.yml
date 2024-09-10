@@ -14,7 +14,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./restore.sql:/docker-entrypoint-initdb.d/restore.sql
-      - ./separate_table_ddl.sql:/docker-entrypoint-initdb.d/separate_table_ddl.sql
+      - ./restore.sql:/docker-entrypoint-initdb.d/01_restore_data.sql      
+      - ./separate_table_ddl.sql:/docker-entrypoint-initdb.d/02_create_ddl.sql      
     restart: always
 
